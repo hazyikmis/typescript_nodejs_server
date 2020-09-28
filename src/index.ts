@@ -24,3 +24,25 @@ app.use(loginRouter);
 app.listen(3000, () => {
   console.log('Listening on port 3000...');
 });
+
+//HERE IS THE FULL TYPESCRIPT IMPLEMENTATION OF SIMPLE INDEX FILE
+//DO WE GAIN SOMETHING?
+/*
+class Server {
+  app: express.Express = express();
+
+  constructor() {
+    this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(cookieSession({ keys: ['qwerty'] }));
+    this.app.use(loginRouter);
+  }
+
+  start(): void {
+    this.app.listen(3000, () => {
+      console.log('Listening on port 3000...');
+    });
+  }
+}
+
+new Server().start();
+*/

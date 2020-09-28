@@ -91,3 +91,51 @@ router.get('/protected', requireAuth, (req: RequestWithBody, res: Response) => {
 });
 
 export { router };
+
+//EXAMPLE WITH DECORATORS (This file could be designed as a controller class with decorators as shown below)
+//There are 4 (main) types of decorators
+//1.for routes, for ex: @post & @get
+//2.for validation, for ex: @validateBody
+//3.for applying middlewares, for ex: @use
+//4.for marking class as being a controller, for ex: @controller
+
+@controller('/auth') //all different routes in the class append its routes, for ex. "/auth/login"
+class LoginController {
+  @get('/login')
+  getLogin(req: Request, res: Response): void {
+    //as you noticed, there is no "route" specified in the function!
+    //bu as you noticed of course, "route" specified in/as decorator!
+    res.send('form');
+  }
+
+  @post('/login')
+  @validateBody('email', 'password')
+  @use(requireAuth) //apply middleware
+  postLogin(req: Request, res: Response): void {
+    //as you noticed, there is no "route" specified in the function!
+    //bu as you noticed of course, "route" specified in/as decorator!
+    const { email, password } = req.body;
+    if (email && password && email === 'hi@hi.com' && password === 'pwd') {
+      //mark this person as logged in
+      req.session = { loggedIn: true };
+      //redirect this person to the root route
+      res.redirect('/');
+    } else {
+      res.send('Invalid email or password');
+    }
+  }
+}
+
+//how to implement routing? how to say to "router" that "postLogin" function is your callback function
+function post(routeName: string) {
+  return function (target: any, key: string, desc: PropertyDescriptor) {
+    router.post(routeName, target[key]);
+  };
+}
+
+//how to implement middleware applications? how to inject this middleware to the post("/login") route?
+function use(middleware: any) {
+  return function (target: any, key: string, desc: PropertyDescriptor) {
+    router.addMiddlewareToHandlerWeJustRegistered(middleware); //we need a function like that
+  };
+}

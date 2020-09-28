@@ -26,3 +26,11 @@ Change the "scripts" section of package.json as below:
 Create index.ts under ./src folder and just put one line "console.log('something')"
 
 On the terminal, execute "npm start". At first execution, some errors are highly possible (because there is no build version of index.ts available yet).
+
+Install 3 npm packages:
+
+```
+npm install express body-parser cookie-session
+//the adapter files (type definition files of these libs should be also installed!)
+npm install @types/express @types/body-parser @types/cookie-session
+```

@@ -17,6 +17,35 @@ function requireAuth(req: Request, res: Response, next: NextFunction): void {
 
 const router = Router();
 
+// router.get('/', (req: Request, res: Response) => {
+//   res.send('Hi there...');
+// });
+router.get('/login', (req: Request, res: Response) => {
+  res.send(`
+    <form method="POST">
+      <div>
+          <label>Email</label>
+          <input name="email" />
+        </div>
+        <div>
+          <label>Password</label>
+          <input name="password" type="password" />
+        </div>
+      <button>Submit</button>
+    </form>
+  `);
+});
+
+/*
+router.post("/login", (req: Request, res: Response) => {
+  const {email, password} = req.body;
+  //normally, since we are using typescript, it should be "TYPE_GUARD" before the line below
+  //maybe, there is no "email" in the req.body. : SOLUTION IS DEFINING A NEW INTERFACE AS RequestWithBody WHICH EXTENDS Request
+  //if (email) {...}
+  res.send(email.toUpperCase());
+}
+*/
+
 router.post('/login', (req: RequestWithBody, res: Response) => {
   const { email, password } = req.body;
   // if (email) {
@@ -63,7 +92,6 @@ router.get('/protected', requireAuth, (req: RequestWithBody, res: Response) => {
 
 export { router };
 
-/*
 //EXAMPLE WITH DECORATORS (This file could be designed as a controller class with decorators as shown below)
 //There are 4 (main) types of decorators
 //1.for routes, for ex: @post & @get
@@ -111,4 +139,3 @@ function use(middleware: any) {
     router.addMiddlewareToHandlerWeJustRegistered(middleware); //we need a function like that
   };
 }
-*/

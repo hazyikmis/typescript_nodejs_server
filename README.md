@@ -35,6 +35,20 @@ npm install express body-parser cookie-session
 npm install @types/express @types/body-parser @types/cookie-session
 ```
 
+And after some refactoring, when injecting decorators & metadata:
+
+```
+npm install reflect-metadata
+```
+
+Uncomment & Enable "Experimental Options" in tsconfig.json:
+
+```
+/* Experimental Options */
+"experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
+"emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
+```
+
 # Attention! Type Definition Files are not always PERFECT!
 
 https://www.udemy.com/course/typescript-the-complete-developers-guide/learn/lecture/15067118

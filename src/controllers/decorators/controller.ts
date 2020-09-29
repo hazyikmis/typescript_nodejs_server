@@ -2,6 +2,7 @@ import 'reflect-metadata';
 //import express from 'express';
 import { AppRouter } from '../../AppRouter';
 import { Methods } from './Methods';
+import { MetadataKeys } from './MetadataKeys';
 
 //this is not good place to define router!!!
 //because of that, AppRouter imported and used inside the decorator function below, rather than the router defined below
@@ -14,10 +15,16 @@ export function controller(routePrefix: string) {
     const router = AppRouter.getInstance();
     for (let key in target.prototype) {
       const routeHandler = target.prototype[key];
-      const path = Reflect.getMetadata('path', target.prototype, key);
+      // const path = Reflect.getMetadata('path', target.prototype, key);
+      const path = Reflect.getMetadata(
+        MetadataKeys.path,
+        target.prototype,
+        key
+      );
       //const method = Reflect.getMetadata('method', target.prototype, key); //method is : get, put, post, delete, etc
       const method: Methods = Reflect.getMetadata(
-        'method',
+        // 'method',
+        MetadataKeys.method,
         target.prototype,
         key
       ); //method is : get, put, post, delete, etc

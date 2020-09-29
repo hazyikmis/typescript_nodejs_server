@@ -4,6 +4,7 @@
 
 import 'reflect-metadata';
 import { Methods } from './Methods';
+import { MetadataKeys } from './MetadataKeys';
 
 //creating & exporting for each REST API is a one way of solution, but super code duplication exists!
 /*
@@ -30,8 +31,10 @@ function routeBinder(method: string) {
   return function (path: string) {
     //below is the actual decorator function
     return function (target: any, key: string, desc: PropertyDescriptor) {
-      Reflect.defineMetadata('path', path, target, key);
-      Reflect.defineMetadata('method', method, target, key);
+      // Reflect.defineMetadata('path', path, target, key);
+      // Reflect.defineMetadata('method', method, target, key);
+      Reflect.defineMetadata(MetadataKeys.path, path, target, key);
+      Reflect.defineMetadata(MetadataKeys.method, method, target, key);
     };
   };
 }

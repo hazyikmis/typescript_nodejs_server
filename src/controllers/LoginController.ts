@@ -24,3 +24,7 @@ class LoginController {
     `);
   }
 }
+
+//@use(middleware)
+//we're going to store some metadata on this request handler (getLogin) and then
+//wired up to our router from the controller decorator.

@@ -15,12 +15,14 @@ export function controller(routePrefix: string) {
     const router = AppRouter.getInstance();
     for (let key in target.prototype) {
       const routeHandler = target.prototype[key];
+
       // const path = Reflect.getMetadata('path', target.prototype, key);
       const path = Reflect.getMetadata(
         MetadataKeys.path,
         target.prototype,
         key
       );
+
       //const method = Reflect.getMetadata('method', target.prototype, key); //method is : get, put, post, delete, etc
       const method: Methods = Reflect.getMetadata(
         // 'method',
@@ -29,9 +31,14 @@ export function controller(routePrefix: string) {
         key
       ); //method is : get, put, post, delete, etc
 
+      const middlewares =
+        Reflect.getMetadata(MetadataKeys.middleware, target.prototype, key) ||
+        [];
+
       if (path) {
         //router.get(`${routePrefix}${path}`, routeHandler);
-        router[method](`${routePrefix}${path}`, routeHandler);
+        //router[method](`${routePrefix}${path}`, routeHandler);
+        router[method](`${routePrefix}${path}`, ...middlewares, routeHandler);
       }
     }
   };

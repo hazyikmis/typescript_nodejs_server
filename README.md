@@ -115,3 +115,5 @@ function use(middleware: any) {
 }
 
 ```
+
+If you check out the decorator functions for route-path, middleware-use, validate, etc. defined under /decorators folder, you'll %100 sure notice that structure is the same.
